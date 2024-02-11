@@ -1,6 +1,6 @@
 <script setup lang="ts">
-// import Settings from "./components/Pages/Settings/Settings.vue";
-import Swim from "./components/Pages/Swim/Swim.vue";
+import Settings from "./components/pages/Settings/Settings.vue";
+// import Swim from "./components/Pages/Swim/Swim.vue";
 </script>
 
 <template>
@@ -8,8 +8,8 @@ import Swim from "./components/Pages/Swim/Swim.vue";
     <div class="mb-4">
       <h1>Пловцы</h1>
     </div>
-    <!-- <Settings /> -->
-    <Swim />
+    <Settings />
+    <!-- <Swim /> -->
   </div>
 </template>
 

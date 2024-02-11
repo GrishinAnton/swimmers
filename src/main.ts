@@ -10,7 +10,6 @@ import * as components from 'vuetify/components'
 
 const vuetify = createVuetify({
   components,
-  
   directives,
 })
 
