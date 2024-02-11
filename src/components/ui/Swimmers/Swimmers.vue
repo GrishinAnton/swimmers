@@ -6,21 +6,22 @@
       :items="swimmers"
       item-title="name"
       item-value="id"
-      label="Плавцы"
+      label="Пловцы"
       multiple
       chips
-      @update:model-value="(val) => props.changeSwimmers(val)"
+      :model-value="props.activeValue"
+      @update:model-value="(val) => changeSwimmers(val)"
     />
   </v-item-group>
 </template>
 
 <script setup lang="ts">
-import { swimmers } from "../../common/dictionary/swimmers";
+import { swimmers, ISwimmer } from "../../common/dictionary/swimmers";
 
-const props = defineProps({
-  changeSwimmers: {
-    type: Function,
-    required: true,
-  },
-});
+interface Props {
+  activeValue: ISwimmer[] | null;
+  changeSwimmers: (val: ISwimmer[] | undefined) => void;
+}
+
+const props = defineProps<Props>();
 </script>

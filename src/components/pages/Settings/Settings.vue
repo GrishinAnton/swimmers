@@ -1,15 +1,17 @@
 <template>
   <Distance :changeDistance="changeDistance" />
   <In :changeIn="changeIn" />
-  <Swimmers :changeSwimmers="changeSwimmers" />
+  <Swimmers :changeSwimmers="changeSwimmers" :activeValue="settings.swimmers" />
   <div class="mb-6">
-    <Button>Сбросить</Button>
-    <Button>Старт</Button>
+    <Button @click="resetSettingsHandler">Сбросить</Button>
+    <Button @click="goToStart">Старт</Button>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, watch } from "vue";
+import { useRouter } from "vue-router";
+
 import Distance from "../../ui/Distance/Distance.vue";
 import In from "../../ui/In/In.vue";
 import Swimmers from "../../ui/Swimmers/Swimmers.vue";
@@ -24,11 +26,14 @@ interface ISettings {
   swimmers: ISwimmer[] | null;
 }
 
-const settings = ref<ISettings>({
+const defaultSettings: ISettings = {
   distance: null,
   in: null,
   swimmers: null,
-});
+};
+
+const settings = ref<ISettings>({ ...defaultSettings });
+const router = useRouter();
 
 const changeDistance = (distance: IDistance) => {
   settings.value.distance = distance;
@@ -38,8 +43,18 @@ const changeIn = (inha: IInha) => {
   settings.value.in = inha;
 };
 
-const changeSwimmers = (swimmer: ISwimmer[]) => {
-  settings.value.swimmers = swimmer;
+const changeSwimmers = (swimmer: ISwimmer[] | undefined) => {
+  settings.value.swimmers = swimmer ?? null;
+};
+
+const resetSettingsHandler = () => {
+  settings.value.distance = defaultSettings.distance;
+  settings.value.in = defaultSettings.in;
+  settings.value.swimmers = defaultSettings.swimmers;
+};
+
+const goToStart = () => {
+  router.push("/start");
 };
 
 watch(settings.value, (val) => {

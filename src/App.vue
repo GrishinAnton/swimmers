@@ -1,17 +1,13 @@
-<script setup lang="ts">
-import Settings from "./components/pages/Settings/Settings.vue";
-// import Swim from "./components/Pages/Swim/Swim.vue";
-</script>
-
 <template>
   <div class="root">
     <div class="mb-4">
       <h1>Пловцы</h1>
     </div>
-    <Settings />
-    <!-- <Swim /> -->
+    <router-view></router-view>
   </div>
 </template>
+
+<script setup lang="ts"></script>
 
 <style scoped>
 .root {
