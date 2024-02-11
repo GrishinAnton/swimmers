@@ -19,19 +19,13 @@ import Button from "../../ui/Button/Button.vue";
 import { IDistance } from "../../common/dictionary/distance";
 import { IInha } from "../../common/dictionary/inha";
 import { ISwimmer } from "../../common/dictionary/swimmers";
+import {
+  defaultSettings,
+  useSettingsStore,
+  ISettings,
+} from "../../../features/settings/storeSettings";
 
-interface ISettings {
-  distance: IDistance | null;
-  in: IInha | null;
-  swimmers: ISwimmer[] | null;
-}
-
-const defaultSettings: ISettings = {
-  distance: null,
-  in: null,
-  swimmers: null,
-};
-
+const store = useSettingsStore();
 const settings = ref<ISettings>({ ...defaultSettings });
 const router = useRouter();
 
@@ -58,8 +52,10 @@ const goToStart = () => {
 };
 
 watch(settings.value, (val) => {
-  console.log(val.distance, "1watch");
-  console.log(val.in, "2watch");
-  console.log(val.swimmers, "3watch");
+  store.$patch({
+    distance: val.distance,
+    in: val.in,
+    swimmers: val.swimmers,
+  });
 });
 </script>

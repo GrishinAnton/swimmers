@@ -1,0 +1,35 @@
+{
+    "git.enableSmartCommit": true,
+    "git.autofetch": true,
+    "git.confirmSync": false,
+    "explorer.confirmDelete": false,
+    "explorer.confirmDragAndDrop": false,
+    "typescript.updateImportsOnFileMove.enabled": "always",
+    "files.autoSave": "onFocusChange",
+    "workbench.colorTheme": "Darcula",
+    "javascript.updateImportsOnFileMove.enabled": "always",
+ 
+    "wallaby.startAutomatically": true,
+    "workbench.editor.revealIfOpen": false,
+    "workbench.iconTheme": "vscode-icons-mac",
+  
+    "workbench.editorAssociations": {
+        "*.tgz": "default"
+    },
+    "debug.javascript.autoAttachFilter": "always",
+    "files.eol": "\n",
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit"
+    },
+    "vetur.validation.template": false,
+    "[vue]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[javascript]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[typescript]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+}
