@@ -9,7 +9,7 @@
       label="Пловцы"
       multiple
       chips
-      :model-value="props.activeValue"
+      :model-value="activeValue"
       @update:model-value="(val) => changeSwimmers(val)"
     />
   </v-item-group>
@@ -23,5 +23,5 @@ interface Props {
   changeSwimmers: (val: ISwimmer[] | undefined) => void;
 }
 
-const props = defineProps<Props>();
+defineProps<Props>();
 </script>
