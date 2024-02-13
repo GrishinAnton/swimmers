@@ -25,7 +25,7 @@
         >
       </v-row>
     </v-card>
-    <div v-else>Сначала надо выбрать пловцов</div>
+    <div v-else>Сначала надо выбрать пловцов и дистанцию</div>
   </v-container>
   <div class="mb-6">
     <v-btn
@@ -44,6 +44,7 @@
 import { useRouter } from "vue-router";
 import Timer, { TTimerStatus } from "../../layout/Timer/Timer.vue";
 import { useSettingsStore } from "../../../features/settings/storeSettings";
+import { swimmers as swimmersData } from "../../common/dictionary/swimmers";
 import { ref, watchEffect, computed } from "vue";
 
 export interface ISwimData {
@@ -62,12 +63,19 @@ const swimmerData = ref<ISwimData[]>();
 
 watchEffect(() => {
   if (swimmers) {
-    swimmerData.value = swimmers.map((swim) => ({
-      swimId: swim.id,
-      swimName: swim.name,
-      timerStatus: "stop",
-      time: "",
-    }));
+    swimmerData.value = swimmers
+      .map((swim) => {
+        const swimmer = swimmersData.find((s) => s.id === swim);
+        if (swimmer) {
+          return {
+            swimId: swimmer?.id,
+            swimName: swimmer?.name,
+            timerStatus: "stop",
+            time: "",
+          };
+        }
+      })
+      .filter((val) => Boolean(val)) as ISwimData[];
   }
 });
 

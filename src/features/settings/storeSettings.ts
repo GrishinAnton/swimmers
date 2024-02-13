@@ -1,12 +1,9 @@
 import { defineStore } from "pinia";
-import { IDistance } from "../../components/common/dictionary/distance";
-import { IInha } from "../../components/common/dictionary/inha";
-import { ISwimmer } from "../../components/common/dictionary/swimmers";
 
 export interface ISettings {
-  distance: IDistance | null;
-  in: IInha | null;
-  swimmers: ISwimmer[] | null;
+  distance: number | null;
+  in: number | null;
+  swimmers: number[] | null;
 }
 
 export const defaultSettings: ISettings = {
@@ -16,7 +13,7 @@ export const defaultSettings: ISettings = {
 };
 
 export const useSettingsStore = defineStore("settings", {
-  state: (): ISettings => defaultSettings,
+  state: (): ISettings => ({ ...defaultSettings }),
   getters: {
     getState: (state) => state,
   },

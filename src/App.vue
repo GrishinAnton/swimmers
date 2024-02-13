@@ -11,8 +11,14 @@
 
 <style scoped>
 .root {
-  border: 1px solid red;
-  max-width: 320px;
+  min-width: 320px;
+  max-width: 420px;
   width: 100%;
+
+  padding: 4px;
+
+  margin: auto;
+
+  border: 1px solid red;
 }
 </style>

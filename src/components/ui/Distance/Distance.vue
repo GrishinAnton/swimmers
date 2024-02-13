@@ -1,30 +1,25 @@
 <template>
-  <v-item-group
-    class="d-flex justify-sm-space-between px-2 pt-2 pb-6 overflow-x-auto"
-  >
-    <v-item v-for="n in distance" :key="n.id">
-      <v-btn
-        class="mr-2"
-        border
-        height="60"
-        variant="text"
-        width="120"
-        @click="() => props.changeDistance(n)"
-        >{{ n.distance }}</v-btn
-      >
-    </v-item>
-  </v-item-group>
+  <v-select
+    :items="distance"
+    item-title="distance"
+    item-value="id"
+    label="Дистанция"
+    variant="outlined"
+    clearable
+    :model-value="activeValue"
+    @update:model-value="(val) => changeDistance(val)"
+  />
 </template>
 
 <script setup lang="ts">
 import { distance } from "../../common/dictionary/distance";
 
-const props = defineProps({
-  changeDistance: {
-    type: Function,
-    required: true,
-  },
-});
+interface Props {
+  activeValue: number | null;
+  changeDistance: (distance: number) => void;
+}
+
+defineProps<Props>();
 </script>
 
 <style scoped></style>

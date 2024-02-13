@@ -1,10 +1,10 @@
 <template>
-  <Distance :changeDistance="changeDistance" />
-  <In :changeIn="changeIn" />
+  <Distance :changeDistance="changeDistance" :activeValue="settings.distance" />
+  <In :changeIn="changeIn" :activeValue="settings.in" />
   <Swimmers :changeSwimmers="changeSwimmers" :activeValue="settings.swimmers" />
   <div class="mb-6">
     <Button @click="resetSettingsHandler">Сбросить</Button>
-    <Button @click="goToStart">Старт</Button>
+    <Button :disabled="!canStart" @click="goToStart">Старт</Button>
   </div>
 </template>
 
@@ -16,28 +16,31 @@ import Distance from "../../ui/Distance/Distance.vue";
 import In from "../../ui/In/In.vue";
 import Swimmers from "../../ui/Swimmers/Swimmers.vue";
 import Button from "../../ui/Button/Button.vue";
-import { IDistance } from "../../common/dictionary/distance";
-import { IInha } from "../../common/dictionary/inha";
-import { ISwimmer } from "../../common/dictionary/swimmers";
+
 import {
   defaultSettings,
   useSettingsStore,
   ISettings,
 } from "../../../features/settings/storeSettings";
+import { computed } from "vue";
 
 const store = useSettingsStore();
-const settings = ref<ISettings>({ ...defaultSettings });
+const settings = ref<ISettings>(Object.assign({}, defaultSettings));
 const router = useRouter();
 
-const changeDistance = (distance: IDistance) => {
+const canStart = computed(() => {
+  return Boolean(settings.value.swimmers?.length) && settings.value.distance;
+});
+
+const changeDistance = (distance: number) => {
   settings.value.distance = distance;
 };
 
-const changeIn = (inha: IInha) => {
+const changeIn = (inha: number) => {
   settings.value.in = inha;
 };
 
-const changeSwimmers = (swimmer: ISwimmer[] | undefined) => {
+const changeSwimmers = (swimmer: number[] | undefined) => {
   settings.value.swimmers = swimmer ?? null;
 };
 
