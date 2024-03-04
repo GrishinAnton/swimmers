@@ -12,7 +12,7 @@
 </template>
 
 <script setup lang="ts">
-import { inha } from "../../common/dictionary/inha";
+import { inha } from "@/components/common/dictionary/inha";
 
 interface Props {
   activeValue: number | null;

@@ -12,7 +12,7 @@
 </template>
 
 <script setup lang="ts">
-import { distance } from "../../common/dictionary/distance";
+import { distance } from "@/components/common/dictionary/distance";
 
 interface Props {
   activeValue: number | null;

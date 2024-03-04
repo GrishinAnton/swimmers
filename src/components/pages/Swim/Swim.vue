@@ -1,32 +1,32 @@
 <template>
-  <v-container class="pa-2">
-    <v-card
-      class="pa-1 mb-2"
-      variant="outlined"
-      v-for="n in swimmerData"
-      v-if="swimmerData"
-      :key="n.swimId"
-    >
-      <v-row align="center" justify="space-between" no-gutters>
-        <v-col
-          ><div>{{ n.swimName }}</div>
-          <Timer :swimmer="n" />
-        </v-col>
-        <v-col
-          ><v-btn
-            class="mr-2"
-            border
-            height="60"
-            variant="text"
-            width="120"
-            @click="() => changeTimerStatus(n)"
-            >{{ buttonText(n) }}</v-btn
-          ></v-col
-        >
-      </v-row>
-    </v-card>
-    <div v-else>Сначала надо выбрать пловцов и дистанцию</div>
-  </v-container>
+  <v-card
+    class="pa-1 mb-2"
+    variant="outlined"
+    color="indigo"
+    elevation="4"
+    v-for="n in swimmerData"
+    v-if="swimmerData"
+    :key="n.swimId"
+  >
+    <v-row justify="space-between" no-gutters>
+      <v-col
+        ><div>{{ n.swimName }}</div>
+        <Timer :swimmer="n" />
+      </v-col>
+      <v-col
+        ><v-btn
+          class="mr-2"
+          block
+          height="60"
+          variant="elevated"
+          :color="buttonColor(n)"
+          @click="() => changeTimerStatus(n)"
+          >{{ buttonText(n) }}</v-btn
+        ></v-col
+      >
+    </v-row>
+  </v-card>
+  <div v-else>Сначала надо выбрать пловцов и дистанцию</div>
   <div class="mb-6">
     <v-btn
       class="mr-2"
@@ -42,9 +42,9 @@
 
 <script setup lang="ts">
 import { useRouter } from "vue-router";
-import Timer, { TTimerStatus } from "../../layout/Timer/Timer.vue";
-import { useSettingsStore } from "../../../features/settings/storeSettings";
-import { swimmers as swimmersData } from "../../common/dictionary/swimmers";
+import Timer, { TTimerStatus } from "@/components/layout/Timer/Timer.vue";
+import { useSettingsStore } from "@/features/settings/storeSettings";
+import { swimmers as swimmersData } from "@/components/common/dictionary/swimmers";
 import { ref, watchEffect, computed } from "vue";
 
 export interface ISwimData {
@@ -82,6 +82,11 @@ watchEffect(() => {
 const buttonText = computed(() => (swimmer: ISwimData) => {
   if (swimmer.timerStatus === "stop") return "Старт";
   if (swimmer.timerStatus === "start") return "Стоп";
+});
+
+const buttonColor = computed(() => (swimmer: ISwimData) => {
+  if (swimmer.timerStatus === "stop") return "primary";
+  if (swimmer.timerStatus === "start") return "error";
 });
 
 const goToSettings = () => {

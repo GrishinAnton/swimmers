@@ -14,7 +14,7 @@
 </template>
 
 <script setup lang="ts">
-import { swimmers } from "../../common/dictionary/swimmers";
+import { swimmers } from "@/components/common/dictionary/swimmers";
 
 interface Props {
   activeValue: number[] | null;

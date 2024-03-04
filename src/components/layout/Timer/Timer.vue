@@ -6,10 +6,10 @@
 import { ref, watchEffect } from "vue";
 
 import { setInterval, clearInterval } from "worker-timers";
-import { ISwimData } from "../../pages/Swim/Swim.vue";
+import { ISwimData } from "@/components/pages/Swim/Swim.vue";
 
 const count = ref(0);
-const time = ref("");
+const time = ref("00:00:000");
 const interval = ref();
 
 export type TTimerStatus = "start" | "stop" | "reset";
@@ -27,11 +27,11 @@ watchEffect(() => {
   }
 
   if (props.swimmer.timerStatus === "stop") {
-    clearInterval(interval.value);
+    interval.value && clearInterval(interval.value);
   }
 
   if (props.swimmer.timerStatus === "reset") {
-    clearInterval(interval.value);
+    interval.value && clearInterval(interval.value);
     count.value = 0;
     time.value = "";
   }

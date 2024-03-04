@@ -12,16 +12,16 @@
 import { ref, watch } from "vue";
 import { useRouter } from "vue-router";
 
-import Distance from "../../ui/Distance/Distance.vue";
-import In from "../../ui/In/In.vue";
-import Swimmers from "../../ui/Swimmers/Swimmers.vue";
-import Button from "../../ui/Button/Button.vue";
+import Distance from "@/components/ui/Distance/Distance.vue";
+import In from "@/components/ui/In/In.vue";
+import Swimmers from "@/components/ui/Swimmers/Swimmers.vue";
+import Button from "@/components/ui/Button/Button.vue";
 
 import {
   defaultSettings,
   useSettingsStore,
   ISettings,
-} from "../../../features/settings/storeSettings";
+} from "@/features/settings/storeSettings";
 import { computed } from "vue";
 
 const store = useSettingsStore();
