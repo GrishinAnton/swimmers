@@ -1,8 +1,5 @@
 <template>
   <div class="root">
-    <div class="mb-4">
-      <h1>Пловцы</h1>
-    </div>
     <router-view></router-view>
   </div>
 </template>

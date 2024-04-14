@@ -1,5 +1,10 @@
 <template>
+  <HeaderTitle title="Настройки" />
   <Distance :changeDistance="changeDistance" :activeValue="settings.distance" />
+  <Intervals
+    :changeIntervals="changeInterval"
+    :activeValue="settings.interval"
+  />
   <In :changeIn="changeIn" :activeValue="settings.in" />
   <Swimmers :changeSwimmers="changeSwimmers" :activeValue="settings.swimmers" />
   <div class="mb-6">
@@ -12,7 +17,9 @@
 import { ref, watch } from "vue";
 import { useRouter } from "vue-router";
 
+import HeaderTitle from "@/components/layout/HeaderTitle/HeaderTitle.vue";
 import Distance from "@/components/ui/Distance/Distance.vue";
+import Intervals from "@/components/ui/Intervals/Intervals.vue";
 import In from "@/components/ui/In/In.vue";
 import Swimmers from "@/components/ui/Swimmers/Swimmers.vue";
 import Button from "@/components/ui/Button/Button.vue";
@@ -36,6 +43,10 @@ const changeDistance = (distance: number) => {
   settings.value.distance = distance;
 };
 
+const changeInterval = (interval: number) => {
+  settings.value.interval = interval;
+};
+
 const changeIn = (inha: number) => {
   settings.value.in = inha;
 };
@@ -48,6 +59,7 @@ const resetSettingsHandler = () => {
   settings.value.distance = defaultSettings.distance;
   settings.value.in = defaultSettings.in;
   settings.value.swimmers = defaultSettings.swimmers;
+  settings.value.interval = defaultSettings.interval;
 };
 
 const goToStart = () => {
@@ -55,10 +67,12 @@ const goToStart = () => {
 };
 
 watch(settings.value, (val) => {
+  console.log(settings.value, "settings.value");
   store.$patch({
     distance: val.distance,
     in: val.in,
     swimmers: val.swimmers,
+    interval: val.interval,
   });
 });
 </script>
