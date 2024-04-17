@@ -77,6 +77,8 @@ watch(
     if (props.swimmerData.timerStatus === "reset") {
       interval.value && clearInterval(interval.value);
       count.value = 0;
+      swimmableIntervals.value = [];
+      summSwimmableIntervals.value = 0;
       time.value = defaultTimeValue;
     }
   }
@@ -96,9 +98,11 @@ watch(
 watch(
   () => props.swimmerData.intervalsPassed,
   () => {
-    const lastLap = count.value - summSwimmableIntervals.value;
-    summSwimmableIntervals.value += lastLap;
-    swimmableIntervals.value.push(lastLap);
+    if (props.swimmerData.timerStatus !== "reset") {
+      const lastLap = count.value - summSwimmableIntervals.value;
+      summSwimmableIntervals.value += lastLap;
+      swimmableIntervals.value.push(lastLap);
+    }
   }
 );
 
