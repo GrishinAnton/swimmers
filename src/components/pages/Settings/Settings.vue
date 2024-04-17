@@ -8,7 +8,7 @@
   <In :changeIn="changeIn" :activeValue="settings.in" />
   <Swimmers :changeSwimmers="changeSwimmers" :activeValue="settings.swimmers" />
   <div class="mb-6">
-    <Button @click="resetSettingsHandler">Сбросить</Button>
+    <Button class="mr-2" @click="resetSettingsHandler">Сбросить</Button>
     <Button :disabled="!canStart" @click="goToStart">Старт</Button>
   </div>
 </template>
@@ -28,7 +28,7 @@ import {
   defaultSettings,
   useSettingsStore,
   ISettings,
-} from "@/features/settings/storeSettings";
+} from "@/features/settings/settingsStore";
 import { computed } from "vue";
 
 const store = useSettingsStore();
@@ -67,7 +67,6 @@ const goToStart = () => {
 };
 
 watch(settings.value, (val) => {
-  console.log(settings.value, "settings.value");
   store.$patch({
     distance: val.distance,
     in: val.in,

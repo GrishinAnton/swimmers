@@ -8,9 +8,13 @@
   <SwimCard v-if="isHasSwimmers" />
   <div v-else>Сначала надо выбрать пловцов и дистанцию</div>
   <div class="mb-6 mt-6">
-    <Button v-if="!isHasSwimmers" @click="goToSettings">Выбрать</Button>
-    <Button v-if="isHasSwimmers" @click="resetState">Сбросить</Button>
-    <Button v-if="isHasSwimmers" @click="goToSettings">Сохранить</Button>
+    <Button class="mr-2" v-if="!isHasSwimmers" @click="goToSettings"
+      >Выбрать</Button
+    >
+    <Button class="mr-2" v-if="isHasSwimmers" @click="resetState"
+      >Сбросить</Button
+    >
+    <Button v-if="isHasSwimmers" @click="saveState">Сохранить</Button>
   </div>
 </template>
 
@@ -20,18 +24,28 @@ import { computed } from "vue";
 
 import HeaderTitle from "@/components/layout/HeaderTitle/HeaderTitle.vue";
 
-import { useSettingsStore } from "@/features/settings/storeSettings";
+import { useSettingsStore } from "@/features/settings/settingsStore";
 import Button from "@/components/ui/Button/Button.vue";
-import SwimCard from "@/components/layout/SwimCard/SwimCard.vue";
+import SwimCard from "@/components/pages/Swim/Ui/Card/SwimCard.vue";
+import { useSwimStore } from "@/features/swim/swimStore";
 
 const {
   getState: { swimmers },
 } = useSettingsStore();
+
+const store = useSwimStore();
+
 const router = useRouter();
 
 const isHasSwimmers = computed(() => swimmers?.length);
 
-const resetState = () => {};
+const resetState = () => {
+  store.$patch({ action: "reset" });
+};
+
+const saveState = () => {
+  store.$patch({ action: "save" });
+};
 
 const goToSettings = () => {
   router.push("/");

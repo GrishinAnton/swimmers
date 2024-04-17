@@ -1,7 +1,7 @@
 <template>
   <div class="mb-4">
     <v-sheet class="d-flex align-center">
-      <slot />
+      <slot></slot>
       <h1>{{ title }}</h1>
     </v-sheet>
   </div>
