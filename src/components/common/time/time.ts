@@ -6,4 +6,6 @@ export const getFullTImeValue = (value: number): string => {
   return m + ":" + s + ":" + ms;
 };
 
-export const defaultTimeValue = "00:00:00";
+export const defaultTimeValue = "0:0:0";
+
+export type TTimerStatus = "start" | "stop" | "reset";

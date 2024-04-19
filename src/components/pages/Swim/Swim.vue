@@ -33,14 +33,14 @@ const {
   getState: { swimmers },
 } = useSettingsStore();
 
-const store = useSwimStore();
+const swimStore = useSwimStore();
 
 const router = useRouter();
 
 const isHasSwimmers = computed(() => swimmers?.length);
 
 const resetState = () => {
-  store.$patch({ action: "reset" });
+  swimStore.$patch({ action: "reset" });
 };
 
 // const saveState = () => {

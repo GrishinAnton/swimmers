@@ -9,7 +9,7 @@
       :changeIntervals="changeInterval"
       :activeValue="settings.interval"
     />
-    <In :changeIn="changeIn" :activeValue="settings.in" />
+    <!-- <In :changeIn="changeIn" :activeValue="settings.in" /> -->
     <Swimmers
       :changeSwimmers="changeSwimmers"
       :activeValue="settings.swimmers"
@@ -28,19 +28,19 @@ import { useRouter } from "vue-router";
 import HeaderTitle from "@/components/layout/HeaderTitle/HeaderTitle.vue";
 import Distance from "@/components/ui/Distance/Distance.vue";
 import Intervals from "@/components/ui/Intervals/Intervals.vue";
-import In from "@/components/ui/In/In.vue";
+// import In from "@/components/ui/In/In.vue";
 import Swimmers from "@/components/ui/Swimmers/Swimmers.vue";
 import Button from "@/components/ui/Button/Button.vue";
 import { SubmitEventPromise } from "vuetify";
 
 import {
-  defaultSettings,
+  defaultSettingsState,
   useSettingsStore,
   ISettings,
 } from "@/features/settings/settingsStore";
 
 const store = useSettingsStore();
-const settings = ref<ISettings>(Object.assign({}, defaultSettings));
+const settings = ref<ISettings>(Object.assign({}, defaultSettingsState));
 const refForm = ref();
 const router = useRouter();
 
@@ -61,10 +61,10 @@ const changeSwimmers = (swimmer: number[] | undefined) => {
 };
 
 const resetSettingsHandler = () => {
-  settings.value.distance = defaultSettings.distance;
-  settings.value.in = defaultSettings.in;
-  settings.value.swimmers = defaultSettings.swimmers;
-  settings.value.interval = defaultSettings.interval;
+  settings.value.distance = defaultSettingsState.distance;
+  settings.value.in = defaultSettingsState.in;
+  settings.value.swimmers = defaultSettingsState.swimmers;
+  settings.value.interval = defaultSettingsState.interval;
   refForm.value.resetValidation();
 };
 

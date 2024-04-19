@@ -5,12 +5,18 @@
     item-value="id"
     label="Дистанция"
     variant="outlined"
-    clearable
     :model-value="activeValue"
     @update:model-value="(val) => changeDistance(val)"
     :rules="selectRules"
     required
-  />
+    clearable
+  >
+    <!-- <template #clear>
+      <button>
+        <v-icon>mdi-close-circle</v-icon>
+      </button>
+    </template> --></v-select
+  >
 </template>
 
 <script setup lang="ts">

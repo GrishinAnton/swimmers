@@ -26,7 +26,7 @@
           color="green"
           @click="() => changeIntervalPassed(n)"
           v-if="settingsStore.interval"
-          :disabled="n.timerStatus === 'stop'"
+          :disabled="circleButtonDisabled(n)"
           >Круг</Button
         >
       </v-col>
@@ -37,7 +37,7 @@
 <script setup lang="ts">
 import { ref, computed, watch } from "vue";
 
-import { TTimerStatus } from "./InformationColumn.vue";
+import { TTimerStatus } from "@/components/common/time/time";
 import { useSettingsStore } from "@/features/settings/settingsStore";
 import { swimmers as swimmersData } from "@/components/common/dictionary/swimmers";
 import Button from "@/components/ui/Button/Button.vue";
@@ -57,6 +57,13 @@ const settingsStore = useSettingsStore();
 const swimStore = useSwimStore();
 
 const swimmerData = ref<ISwimData[]>();
+
+const circleButtonDisabled = computed(
+  () => (n: ISwimData) =>
+    n.timerStatus === "stop" ||
+    n.timerStatus === "reset" ||
+    n.intervalsPassed === settingsStore.interval
+);
 
 const fillSwimData = (swimmers: number[], timerStatus: TTimerStatus) => {
   return swimmers
@@ -111,6 +118,9 @@ const changeIntervalPassed = (swimmer: ISwimData) => {
   swimmerData.value?.forEach((swim) => {
     if (swim.swimId === swimmer.swimId) {
       swim.intervalsPassed += 1;
+    }
+    if (swim.intervalsPassed === settingsStore.interval) {
+      swim.timerStatus = "stop";
     }
   });
 };

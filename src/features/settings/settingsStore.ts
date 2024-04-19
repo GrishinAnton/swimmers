@@ -7,7 +7,7 @@ export interface ISettings {
   interval: number | null;
 }
 
-export const defaultSettings: ISettings = {
+export const defaultSettingsState: ISettings = {
   distance: null,
   in: null,
   swimmers: null,
@@ -15,7 +15,7 @@ export const defaultSettings: ISettings = {
 };
 
 export const useSettingsStore = defineStore("settings", {
-  state: (): ISettings => ({ ...defaultSettings }),
+  state: (): ISettings => ({ ...defaultSettingsState }),
   getters: {
     getState: (state) => state,
   },

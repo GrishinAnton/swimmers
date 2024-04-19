@@ -9,22 +9,27 @@
       <v-sheet class="pa-2 font-weight-bold">{{ time }}</v-sheet>
     </v-col>
   </v-row>
-  <v-row class="mr-2" no-gutters v-if="props.swimmerData.intervalsPassed">
+  <v-row class="mr-2" no-gutters v-if="settingsStore.interval">
     <v-col>
-      <v-sheet class="pa-2 text-caption">last</v-sheet>
+      <v-sheet class="pa-2 text-caption">посл-й</v-sheet>
       <v-sheet class="pa-2"> {{ lastLapTime }} </v-sheet>
     </v-col>
     <v-col>
       <v-sheet class="d-flex flex-column">
-        <v-sheet class="pa-2 text-caption">actual</v-sheet>
+        <v-sheet class="pa-2 text-caption">текущий</v-sheet>
         <v-sheet class="pa-2">{{ actualCircleTime }}</v-sheet>
       </v-sheet>
     </v-col>
   </v-row>
-  <v-row class="mr-2" no-gutters v-if="props.swimmerData.intervalsPassed">
+
+  <v-row class="mr-2" no-gutters v-if="settingsStore.interval">
     <v-col class="d-flex flex-row align-center">
       <v-sheet class="pa-2 text-caption">кругов: </v-sheet
-      ><v-sheet class="pa-2 font-weight-bold"> {{ actualCircle }}</v-sheet>
+      ><v-sheet class="pa-2 font-weight-bold">
+        {{ props.swimmerData.intervalsPassed }}/{{
+          settingsStore.interval
+        }}</v-sheet
+      >
     </v-col>
   </v-row>
 </template>
@@ -37,14 +42,14 @@ import {
   getFullTImeValue,
   defaultTimeValue,
 } from "@/components/common/time/time";
+import { useSettingsStore } from "@/features/settings/settingsStore";
 
+const settingsStore = useSettingsStore();
 const count = ref(0);
 const summSwimmableIntervals = ref(0);
 const swimmableIntervals = ref<number[]>([]);
 const time = ref(defaultTimeValue);
 const interval = ref();
-
-export type TTimerStatus = "start" | "stop" | "reset";
 
 interface IProps {
   swimmerData: ISwimData;
@@ -52,15 +57,17 @@ interface IProps {
 
 const props = defineProps<IProps>();
 
-const actualCircle = computed(() => swimmableIntervals.value.length);
-
 const actualCircleTime = computed(() =>
   getFullTImeValue(count.value - summSwimmableIntervals.value)
 );
 
-const lastLapTime = computed(() =>
-  getFullTImeValue([...swimmableIntervals.value].reverse()[0])
-);
+const lastLapTime = computed(() => {
+  if (swimmableIntervals.value.length) {
+    return getFullTImeValue([...swimmableIntervals.value].reverse()[0]);
+  } else {
+    return defaultTimeValue;
+  }
+});
 
 watch(
   () => props.swimmerData.timerStatus,
@@ -79,17 +86,6 @@ watch(
       swimmableIntervals.value = [];
       summSwimmableIntervals.value = 0;
       time.value = defaultTimeValue;
-    }
-  }
-);
-
-watch(
-  () => props.swimmerData.timerStatus,
-  () => {
-    if (props.swimmerData.timerStatus === "stop") {
-      const lastLap = count.value - summSwimmableIntervals.value;
-      summSwimmableIntervals.value += lastLap;
-      swimmableIntervals.value.push(lastLap);
     }
   }
 );

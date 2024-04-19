@@ -1,21 +1,28 @@
 import { defineStore } from "pinia";
 
+type TSwimActionType = "reset" | "save" | null;
 export interface ISwimStore {
-  action: "reset" | "save" | null;
+  action: TSwimActionType;
+  isAllTimerStop: boolean;
 }
 
-export const defaultSettings: ISwimStore = {
+export const defaultSwimState: ISwimStore = {
   action: null,
+  isAllTimerStop: true,
 };
 
 export const useSwimStore = defineStore("swim", {
-  state: (): ISwimStore => ({ ...defaultSettings }),
+  state: (): ISwimStore => ({ ...defaultSwimState }),
   getters: {
-    getState: (state) => state,
+    getAction: (state): TSwimActionType => state.action,
+    getIsAllTimerStop: (state): boolean => state.isAllTimerStop,
   },
   actions: {
-    setState(obj: ISwimStore) {
-      this.action = obj.action;
+    setAction({ action }: { action: TSwimActionType }) {
+      this.action = action;
+    },
+    setAllTimerStop({ isAllTimerStop }: { isAllTimerStop: boolean }) {
+      this.isAllTimerStop = isAllTimerStop;
     },
   },
 });
