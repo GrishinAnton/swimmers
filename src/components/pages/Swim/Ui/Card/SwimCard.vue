@@ -26,6 +26,7 @@
           color="green"
           @click="() => changeIntervalPassed(n)"
           v-if="settingsStore.interval"
+          :disabled="n.timerStatus === 'stop'"
           >Круг</Button
         >
       </v-col>
