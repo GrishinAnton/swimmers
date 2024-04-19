@@ -63,7 +63,10 @@ const actualCircleTime = computed(() =>
 
 const lastLapTime = computed(() => {
   if (swimmableIntervals.value.length) {
-    return getFullTImeValue([...swimmableIntervals.value].reverse()[0]);
+    return [...swimmableIntervals.value]
+      .reverse()
+      .map((el) => getFullTImeValue(el))
+      .join("; ");
   } else {
     return defaultTimeValue;
   }
