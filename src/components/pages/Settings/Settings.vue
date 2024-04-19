@@ -52,9 +52,9 @@ const changeInterval = (interval: number) => {
   settings.value.interval = interval;
 };
 
-const changeIn = (inha: number) => {
-  settings.value.in = inha;
-};
+// const changeIn = (inha: number) => {
+//   settings.value.in = inha;
+// };
 
 const changeSwimmers = (swimmer: number[] | undefined) => {
   settings.value.swimmers = swimmer ?? null;
