@@ -14,7 +14,7 @@
     <Button class="mr-2" v-if="isHasSwimmers" @click="resetState"
       >Сбросить</Button
     >
-    <Button v-if="isHasSwimmers" @click="saveState">Сохранить</Button>
+    <!-- <Button v-if="isHasSwimmers" @click="saveState">Сохранить</Button> -->
   </div>
 </template>
 
@@ -43,9 +43,9 @@ const resetState = () => {
   store.$patch({ action: "reset" });
 };
 
-const saveState = () => {
-  store.$patch({ action: "save" });
-};
+// const saveState = () => {
+//   store.$patch({ action: "save" });
+// };
 
 const goToSettings = () => {
   router.push("/");

@@ -8,11 +8,14 @@
     clearable
     :model-value="activeValue"
     @update:model-value="(val) => changeDistance(val)"
+    :rules="selectRules"
+    required
   />
 </template>
 
 <script setup lang="ts">
 import { distance } from "@/components/common/dictionary/distance";
+import { selectRules } from "@/components/common/validation/validation";
 
 interface Props {
   activeValue: number | null;

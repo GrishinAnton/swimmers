@@ -33,7 +33,6 @@
 import { ISwimData } from "./SwimCard.vue";
 import { computed, ref, watch } from "vue";
 
-// import { setInterval, clearInterval } from "worker-timers";
 import {
   getFullTImeValue,
   defaultTimeValue,
@@ -108,10 +107,10 @@ watch(
 
 const startInterval = () => {
   interval.value = setInterval(() => {
-    count.value += 1000;
+    count.value += 10;
 
     time.value = getFullTImeValue(count.value);
-  }, 1000);
+  }, 10);
 };
 </script>
 
