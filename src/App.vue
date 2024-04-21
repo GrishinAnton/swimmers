@@ -4,7 +4,14 @@
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+//TODO Подумтаь еще надо это или нет
+// window.addEventListener("beforeunload", (event) => {
+//   event.preventDefault();
+//   console.log("asdasdasd");
+//   alert("asdasdasd");
+// });
+</script>
 
 <style scoped>
 .root {
