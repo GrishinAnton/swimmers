@@ -3,7 +3,7 @@
     :color="buttonColor"
     class="mr-3"
     append-icon="mdi-clock-outline"
-    :disabled="buttonDisabled"
+    :disabled="disabledButton"
     @click="handleOp"
     >{{ timerValue }}</v-btn
   >
@@ -17,8 +17,7 @@ const swimStore = useSwimStore();
 
 const interval = ref();
 const time = ref<number>(0);
-
-const buttonDisabled = computed(() => Boolean(time.value));
+const disabledButton = ref<boolean>(false);
 
 const buttonColor = computed(() => {
   if (time.value === 10) {
@@ -39,6 +38,7 @@ const timerValue = computed(() => {
 });
 
 const startInterval = () => {
+  disabledButton.value = true;
   interval.value = setInterval(() => {
     time.value += 1000 * 0.001;
   }, 1000);
@@ -52,6 +52,7 @@ const handleOp = () => {
 const handleResetTimer = () => {
   clearInterval(interval.value);
   time.value = 0;
+  disabledButton.value = false;
 };
 
 watch(
