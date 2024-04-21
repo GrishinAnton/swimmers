@@ -1,10 +1,15 @@
 <template>
-  <v-btn class="ma-2" color="orange-darken-2" @click="goBack">
-    <v-icon icon="mdi-arrow-left" start></v-icon>
-    Назад
-  </v-btn>
-  <HeaderTitle title="Заплыв"></HeaderTitle>
-
+  <HeaderTitle title="Заплыв">
+    <v-btn
+      class="ma-2"
+      color="orange-darken-2"
+      density="compact"
+      icon="mdi-arrow-left"
+      @click="goBack"
+    >
+    </v-btn
+  ></HeaderTitle>
+  <Pulse v-if="isHasSwimmers" />
   <SwimCard v-if="isHasSwimmers" />
   <div v-else>Сначала надо выбрать пловцов и дистанцию</div>
   <div class="mb-6 mt-6">
@@ -28,6 +33,7 @@ import { useSettingsStore } from "@/features/settings/settingsStore";
 import Button from "@/components/ui/Button/Button.vue";
 import SwimCard from "@/components/pages/Swim/Ui/Card/SwimCard.vue";
 import { useSwimStore } from "@/features/swim/swimStore";
+import Pulse from "./Ui/Pulse/Pulse.vue";
 
 const {
   getState: { swimmers },

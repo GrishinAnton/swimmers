@@ -88,7 +88,6 @@ watch(
     if (settingsStore.swimmers && swimStore.action === "reset") {
       swimmerData.value = fillSwimData(settingsStore.swimmers, "reset");
     }
-    swimStore.$patch({ action: null });
   }
 );
 
@@ -126,6 +125,7 @@ const changeIntervalPassed = (swimmer: ISwimData) => {
 };
 
 const changeTimerStatus = (swimmer: ISwimData) => {
+  swimStore.$patch({ action: null });
   swimmerData.value?.forEach((swim) => {
     if (
       swim.swimId === swimmer.swimId &&
