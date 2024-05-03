@@ -5,6 +5,7 @@ export interface ISettings {
   in: number | null;
   swimmers: number[] | null;
   interval: number | null;
+  isWithStop: boolean;
 }
 
 export const defaultSettingsState: ISettings = {
@@ -12,6 +13,7 @@ export const defaultSettingsState: ISettings = {
   in: null,
   swimmers: null,
   interval: null,
+  isWithStop: false,
 };
 
 export const useSettingsStore = defineStore("settings", {
@@ -25,6 +27,7 @@ export const useSettingsStore = defineStore("settings", {
       this.in = obj.in;
       this.swimmers = obj.swimmers;
       this.interval = obj.interval ?? null;
+      this.isWithStop = obj.isWithStop ?? false;
     },
   },
 });

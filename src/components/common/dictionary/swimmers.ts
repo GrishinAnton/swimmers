@@ -36,4 +36,8 @@ export const swimmers: ISwimmer[] = [
     id: 8,
     name: "Глеб",
   },
+  {
+    id: 9,
+    name: "Катя",
+  },
 ];

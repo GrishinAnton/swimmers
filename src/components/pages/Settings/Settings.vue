@@ -9,6 +9,11 @@
       :changeIntervals="changeInterval"
       :activeValue="settings.interval"
     />
+    <WithStop
+      v-if="settings.interval"
+      :activeValue="settings.isWithStop"
+      :changeWithStop="changeIsWithStop"
+    />
     <!-- <In :changeIn="changeIn" :activeValue="settings.in" /> -->
     <Swimmers
       :changeSwimmers="changeSwimmers"
@@ -38,6 +43,7 @@ import {
   useSettingsStore,
   ISettings,
 } from "@/features/settings/settingsStore";
+import WithStop from "@/components/ui/WithStop/WithStop.vue";
 
 const store = useSettingsStore();
 const settings = ref<ISettings>(Object.assign({}, defaultSettingsState));
@@ -50,6 +56,10 @@ const changeDistance = (distance: number) => {
 
 const changeInterval = (interval: number) => {
   settings.value.interval = interval;
+};
+
+const changeIsWithStop = (wishStop: boolean | null) => {
+  settings.value.isWithStop = wishStop ?? false;
 };
 
 // const changeIn = (inha: number) => {
@@ -65,6 +75,7 @@ const resetSettingsHandler = () => {
   settings.value.in = defaultSettingsState.in;
   settings.value.swimmers = defaultSettingsState.swimmers;
   settings.value.interval = defaultSettingsState.interval;
+  settings.value.isWithStop = defaultSettingsState.isWithStop;
   refForm.value.resetValidation();
 };
 
@@ -86,6 +97,7 @@ watch(settings.value, (val) => {
     in: val.in,
     swimmers: val.swimmers,
     interval: val.interval,
+    isWithStop: val.isWithStop,
   });
 });
 </script>

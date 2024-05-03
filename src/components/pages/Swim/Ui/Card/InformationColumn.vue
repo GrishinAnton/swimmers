@@ -1,40 +1,27 @@
 <template>
-  <v-row class="mr-2" no-gutters>
-    <v-col>
-      <v-sheet class="pa-2 font-weight-bold">
-        {{ props.swimmerData.swimName }}
-      </v-sheet>
-    </v-col>
-    <v-col>
-      <v-sheet class="pa-2 font-weight-bold">{{ time }}</v-sheet>
-    </v-col>
-  </v-row>
-  <v-row class="mr-2" no-gutters v-if="settingsStore.interval">
-    <v-col>
-      <v-sheet class="pa-2 text-caption">посл-й</v-sheet>
-      <v-sheet class="pa-2"> {{ lastLapTime }} </v-sheet>
-    </v-col>
-    <v-col>
-      <v-sheet class="d-flex flex-column">
-        <v-sheet class="pa-2 text-caption">текущий</v-sheet>
-        <v-sheet class="pa-2">{{ actualCircleTime }}</v-sheet>
-      </v-sheet>
-    </v-col>
-  </v-row>
-
-  <v-row class="mr-2" no-gutters v-if="settingsStore.interval">
-    <v-col class="d-flex flex-row align-center">
-      <v-sheet class="pa-2 text-caption">кругов: </v-sheet
-      ><v-sheet class="pa-2 font-weight-bold">
-        {{ props.swimmerData.intervalsPassed }}/{{
-          settingsStore.interval
-        }}</v-sheet
-      >
-    </v-col>
-  </v-row>
+  <DefaultView
+    v-if="isViewDefault"
+    :actual-circle-time="actualCircleTime"
+    :swim-name="props.swimmerData.swimName"
+    :interval="settingsStore.interval"
+    :intervalsPassed="props.swimmerData.intervalsPassed"
+    :lastLapTime="lastLapTime"
+    :time="time"
+  />
+  <SmallView
+    v-if="!isViewDefault"
+    :actual-circle-time="actualCircleTime"
+    :swim-name="$props.swimmerData.swimName"
+    :interval="settingsStore.interval"
+    :intervalsPassed="$props.swimmerData.intervalsPassed"
+    :swimmableIntervals="swimmableIntervalsValues"
+    :time="time"
+  />
 </template>
 
 <script setup lang="ts">
+import DefaultView from "./Ui/DefaultView.vue";
+import SmallView from "./Ui/SmallView.vue";
 import { ISwimData } from "./SwimCard.vue";
 import { computed, ref, watch } from "vue";
 
@@ -43,8 +30,10 @@ import {
   defaultTimeValue,
 } from "@/components/common/time/time";
 import { useSettingsStore } from "@/features/settings/settingsStore";
+import { useSwimStore } from "@/features/swim/swimStore";
 
 const settingsStore = useSettingsStore();
+const swimStore = useSwimStore();
 const count = ref(0);
 const summSwimmableIntervals = ref(0);
 const swimmableIntervals = ref<number[]>([]);
@@ -57,9 +46,13 @@ interface IProps {
 
 const props = defineProps<IProps>();
 
+const isViewDefault = computed(() => swimStore.getCardView === "default");
+
 const actualCircleTime = computed(() =>
   getFullTImeValue(count.value - summSwimmableIntervals.value)
 );
+
+const swimmableIntervalsValues = computed(() => [...swimmableIntervals.value]);
 
 const lastLapTime = computed(() => {
   if (swimmableIntervals.value.length) {

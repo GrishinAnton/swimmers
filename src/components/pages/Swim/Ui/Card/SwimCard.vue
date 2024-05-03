@@ -7,11 +7,15 @@
     v-for="n in swimmerData"
     :key="n.swimId"
   >
-    <v-row justify="space-between" no-gutters>
+    <v-row
+      :class="isViewCardDefault ? 'flex-row' : 'flex-column'"
+      justify="space-between"
+      no-gutters
+    >
       <v-col>
         <InformationColumn :swimmer-data="n" />
       </v-col>
-      <v-col>
+      <v-col :class="isViewCardDefault ? '' : 'd-flex smallView'">
         <Button
           block
           class="mb-2"
@@ -57,6 +61,8 @@ const settingsStore = useSettingsStore();
 const swimStore = useSwimStore();
 
 const swimmerData = ref<ISwimData[]>();
+
+const isViewCardDefault = computed(() => swimStore.getCardView === "default");
 
 const circleButtonDisabled = computed(
   () => (n: ISwimData) =>
@@ -117,6 +123,9 @@ const changeIntervalPassed = (swimmer: ISwimData) => {
   swimmerData.value?.forEach((swim) => {
     if (swim.swimId === swimmer.swimId) {
       swim.intervalsPassed += 1;
+      if (settingsStore.isWithStop) {
+        swim.timerStatus = "stop";
+      }
     }
     if (swim.intervalsPassed === settingsStore.interval) {
       swim.timerStatus = "stop";
@@ -139,4 +148,12 @@ const changeTimerStatus = (swimmer: ISwimData) => {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.smallView {
+  margin-right: 4px;
+}
+
+.smallView button {
+  min-width: auto;
+}
+</style>

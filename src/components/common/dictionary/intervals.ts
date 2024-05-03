@@ -52,4 +52,36 @@ export const intervals: IIntervals[] = [
     id: 12,
     interval: 12,
   },
+  {
+    id: 13,
+    interval: 13,
+  },
+  {
+    id: 14,
+    interval: 14,
+  },
+  {
+    id: 15,
+    interval: 15,
+  },
+  {
+    id: 16,
+    interval: 16,
+  },
+  {
+    id: 17,
+    interval: 17,
+  },
+  {
+    id: 18,
+    interval: 18,
+  },
+  {
+    id: 19,
+    interval: 19,
+  },
+  {
+    id: 20,
+    interval: 20,
+  },
 ];

@@ -1,14 +1,26 @@
 <template>
-  <HeaderTitle title="Заплыв">
-    <v-btn
-      class="ma-2"
-      color="orange-darken-2"
-      density="compact"
-      icon="mdi-arrow-left"
-      @click="goBack"
-    >
-    </v-btn
-  ></HeaderTitle>
+  <v-sheet class="d-flex justify-space-between">
+    <HeaderTitle title="Заплыв">
+      <v-btn
+        class="ma-2"
+        color="orange-darken-2"
+        density="compact"
+        icon="mdi-arrow-left"
+        @click="goBack"
+      >
+      </v-btn
+    ></HeaderTitle>
+    <v-sheet class="d-flex"
+      ><v-btn
+        class="ma-2"
+        density="compact"
+        :color="isCardViewDefault"
+        icon="mdi-view-grid-plus-outline"
+        @click="changeCardView"
+      >
+      </v-btn
+    ></v-sheet>
+  </v-sheet>
   <Pulse v-if="isHasSwimmers" />
   <SwimCard v-if="isHasSwimmers" />
   <div v-else>Сначала надо выбрать пловцов и дистанцию</div>
@@ -45,8 +57,20 @@ const router = useRouter();
 
 const isHasSwimmers = computed(() => swimmers?.length);
 
+const isCardViewDefault = computed(() =>
+  swimStore.getCardView === "default" ? "orange-darken-2" : "2"
+);
+
 const resetState = () => {
   swimStore.$patch({ action: "reset" });
+};
+
+const changeCardView = () => {
+  if (swimStore.getCardView === "default") {
+    swimStore.$patch({ cardView: "small" });
+  } else {
+    swimStore.$patch({ cardView: "default" });
+  }
 };
 
 // const saveState = () => {
