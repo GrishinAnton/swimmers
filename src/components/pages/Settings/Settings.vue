@@ -1,10 +1,10 @@
 <template>
   <HeaderTitle title="Настройки" />
   <v-form @submit.prevent="submit" ref="refForm">
-    <Distance
+    <!-- <Distance
       :changeDistance="changeDistance"
       :activeValue="settings.distance"
-    />
+    /> -->
     <Intervals
       :changeIntervals="changeInterval"
       :activeValue="settings.interval"
@@ -31,7 +31,7 @@ import { ref, watch } from "vue";
 import { useRouter } from "vue-router";
 
 import HeaderTitle from "@/components/layout/HeaderTitle/HeaderTitle.vue";
-import Distance from "@/components/ui/Distance/Distance.vue";
+// import Distance from "@/components/ui/Distance/Distance.vue";
 import Intervals from "@/components/ui/Intervals/Intervals.vue";
 // import In from "@/components/ui/In/In.vue";
 import Swimmers from "@/components/ui/Swimmers/Swimmers.vue";
@@ -50,9 +50,9 @@ const settings = ref<ISettings>(Object.assign({}, defaultSettingsState));
 const refForm = ref();
 const router = useRouter();
 
-const changeDistance = (distance: number) => {
-  settings.value.distance = distance;
-};
+// const changeDistance = (distance: number) => {
+//   settings.value.distance = distance;
+// };
 
 const changeInterval = (interval: number) => {
   settings.value.interval = interval;

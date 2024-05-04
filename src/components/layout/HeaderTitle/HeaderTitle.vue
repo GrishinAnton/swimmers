@@ -1,5 +1,5 @@
 <template>
-  <div class="mb-4">
+  <div class="mb-2">
     <v-sheet class="d-flex align-center">
       <slot></slot>
       <h1>{{ title }}</h1>

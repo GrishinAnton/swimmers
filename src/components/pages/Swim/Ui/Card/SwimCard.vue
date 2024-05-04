@@ -16,23 +16,7 @@
         <InformationColumn :swimmer-data="n" />
       </v-col>
       <v-col :class="isViewCardDefault ? '' : 'd-flex smallView'">
-        <Button
-          block
-          class="mb-2"
-          variant="elevated"
-          :color="buttonColor(n)"
-          @click="() => changeTimerStatus(n)"
-          >{{ buttonText(n) }}</Button
-        >
-        <Button
-          block
-          variant="elevated"
-          color="green"
-          @click="() => changeIntervalPassed(n)"
-          v-if="settingsStore.interval"
-          :disabled="circleButtonDisabled(n)"
-          >Круг</Button
-        >
+        <ButtonBlock :swimmerData="n" />
       </v-col>
     </v-row>
   </v-card>
@@ -44,9 +28,9 @@ import { ref, computed, watch } from "vue";
 import { TTimerStatus } from "@/components/common/time/time";
 import { useSettingsStore } from "@/features/settings/settingsStore";
 import { swimmers as swimmersData } from "@/components/common/dictionary/swimmers";
-import Button from "@/components/ui/Button/Button.vue";
 import InformationColumn from "./InformationColumn.vue";
 import { useSwimStore } from "@/features/swim/swimStore";
+import ButtonBlock from "./ButtonBlock.vue";
 
 export interface ISwimData {
   swimId: number;
@@ -63,13 +47,6 @@ const swimStore = useSwimStore();
 const swimmerData = ref<ISwimData[]>();
 
 const isViewCardDefault = computed(() => swimStore.getCardView === "default");
-
-const circleButtonDisabled = computed(
-  () => (n: ISwimData) =>
-    n.timerStatus === "stop" ||
-    n.timerStatus === "reset" ||
-    n.intervalsPassed === settingsStore.interval
-);
 
 const fillSwimData = (swimmers: number[], timerStatus: TTimerStatus) => {
   return swimmers
@@ -106,54 +83,27 @@ watch(
   },
   { immediate: true }
 );
-
-const buttonText = computed(() => (swimmer: ISwimData) => {
-  if (swimmer.timerStatus === "stop" || swimmer.timerStatus === "reset")
-    return "Старт";
-  if (swimmer.timerStatus === "start") return "Стоп";
-});
-
-const buttonColor = computed(() => (swimmer: ISwimData) => {
-  if (swimmer.timerStatus === "stop" || swimmer.timerStatus === "reset")
-    return "primary";
-  if (swimmer.timerStatus === "start") return "error";
-});
-
-const changeIntervalPassed = (swimmer: ISwimData) => {
-  swimmerData.value?.forEach((swim) => {
-    if (swim.swimId === swimmer.swimId) {
-      swim.intervalsPassed += 1;
-      if (settingsStore.isWithStop) {
-        swim.timerStatus = "stop";
-      }
-    }
-    if (swim.intervalsPassed === settingsStore.interval) {
-      swim.timerStatus = "stop";
-    }
-  });
-};
-
-const changeTimerStatus = (swimmer: ISwimData) => {
-  swimStore.$patch({ action: null });
-  swimmerData.value?.forEach((swim) => {
-    if (
-      swim.swimId === swimmer.swimId &&
-      (swim.timerStatus === "stop" || swimmer.timerStatus === "reset")
-    ) {
-      swim.timerStatus = "start";
-    } else if (swim.swimId === swimmer.swimId && swim.timerStatus === "start") {
-      swim.timerStatus = "stop";
-    }
-  });
-};
 </script>
 
 <style scoped>
-.smallView {
-  margin-right: 4px;
-}
-
 .smallView button {
   min-width: auto;
+  height: 50px !important;
+}
+
+.smallView button:not(:last-child) {
+  margin-right: 8px;
+}
+
+.buttonTime {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 1;
+}
+
+.buttonTimeEl {
+  color: black;
+  font-size: 18px;
 }
 </style>

@@ -1,19 +1,19 @@
 <template>
   <v-sheet class="d-flex">
-    <v-sheet class="pa-2 font-weight-bold">
+    <v-sheet class="pa-1 font-weight-bold">
       {{ props.swimName }}
     </v-sheet>
-    <v-sheet class="pa-2 font-weight-bold">{{ props.time }}</v-sheet>
-    <v-sheet v-if="interval" class="pa-2">{{ props.actualCircleTime }}</v-sheet>
+    <v-sheet class="pa-1 font-weight-bold">{{ props.time }}</v-sheet>
+    <v-sheet v-if="interval" class="pa-1">{{ props.actualCircleTime }}</v-sheet>
     <v-menu transition="scale-transition" v-if="interval">
       <template v-slot:activator="{ props }">
-        <v-sheet v-bind="props" class="pa-2 tre">
+        <v-sheet v-bind="props" class="pa-1 tre">
           {{ lastLapTime }}
         </v-sheet>
       </template>
 
-      <v-sheet class="pa-2 container">
-        <v-sheet class="pa-2" v-for="(lap, index) in swimmableIntervals">
+      <v-sheet class="pa-1 container">
+        <v-sheet class="pa-1" v-for="(lap, index) in swimmableIntervals">
           <v-sheet class="d-flex">
             <v-sheet class="font-weight-bold pr-1"> {{ index + 1 }}:</v-sheet>
             <v-sheet> {{ getFullTImeValue(lap) }} </v-sheet>
@@ -22,7 +22,7 @@
       </v-sheet>
     </v-menu>
 
-    <v-sheet v-if="interval" class="pa-2 font-weight-bold">
+    <v-sheet v-if="interval" class="pa-1 font-weight-bold">
       {{ props.intervalsPassed }}/{{ props.interval }}</v-sheet
     >
   </v-sheet>
