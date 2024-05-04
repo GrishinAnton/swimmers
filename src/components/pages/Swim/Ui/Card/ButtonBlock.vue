@@ -15,7 +15,11 @@
     v-if="settingsStore.interval"
     :disabled="circleButtonDisabled(props.swimmerData)"
     ><span class="buttonTime"
-      ><span class="buttonTimeEl font-weight-bold">{{ relaxTime }}</span>
+      ><span
+        v-if="settingsStore.isWithStop"
+        class="buttonTimeEl font-weight-bold"
+        >{{ relaxTime }}</span
+      >
       <span>Круг</span>
     </span></Button
   >
